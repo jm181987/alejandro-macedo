@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alejandro Macedo - Música y Arte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Animaciones avanzadas para artista musical */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header con glassmorphism */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 25px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section con espacio para imagen */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+            z-index: 1;
+        }
+        
+        /* ESPACIO PARA IMAGEN HERO - Reemplazar URL */
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1571974599782-87624638275f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: slideUp 1.5s ease-out;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd700);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Music Section Mejorada */
+        .music {
+            padding: 150px 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            border-radius: 2px;
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.1);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .play-button {
+            background: rgba(255, 107, 107, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-info {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        /* Modal para videos */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        
+        .modal-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 150px 0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        
+        .about-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.4s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 150px 0;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: #ffd700;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .videos-grid { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/+59897415911" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Modal para videos -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="modal-video-container" id="modalVideoContainer">
+                <!-- El iframe se insertará aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+    
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">Alejandro Macedo</div>
+                <div class="nav-links">
+                    <a href="#music">Música</a>
+                    <a href="#about">Biografía</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Alejandro Macedo</h1>
+                <p>Música que conecta corazones y emociones</p>
+                <a href="#music" class="cta-button">Escuchar Música</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="music" id="music">
+        <div class="container">
+            <h2 class="section-title">Últimos Lanzamientos</h2>
+            <div class="videos-grid">
+                <div class="video-card" data-video="gtoM23buboA">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/gtoM23buboA/maxresdefault.jpg" alt="Canción del Alma">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Canción del Alma</h3>
+                        <p>Video oficial - 2024</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" data-video="R25A3EADR3E">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/R25A3EADR3E/maxresdefault.jpg" alt="Noches de Verano">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Noches de Verano</h3>
+                        <p>En vivo desde el estudio</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" data-video="Dcz2jUdHXW0">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/Dcz2jUdHXW0/maxresdefault.jpg" alt="Mi Historia">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Mi Historia</h3>
+                        <p>Documental musical</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Alejandro Macedo en concierto">
+                </div>
+                <div class="about-text">
+                    <h3>Biografía</h3>
+                    <p>Alejandro Macedo es un cantante y compositor apasionado por crear música que trasciende fronteras. Con una carrera que abarca más de una década, ha logrado conectar con audiencias alrededor del mundo a través de sus letras profundas y melodías cautivadoras.</p>
+                    <p>Su estilo único combina elementos de la música latina con influencias contemporáneas, creando un sonido fresco y auténtico. Cada presentación es una experiencia emotiva que deja huella en el corazón de sus seguidores.</p>
+                    <p>Actualmente se encuentra trabajando en su nuevo single, prometiendo llevar su arte a nuevos horizontes musicales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Booking & Shows</h3>
+                    <p>Contrataciones para eventos y presentaciones</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-record-vinyl"></i>
+                    </div>
+                    <h3>Colaboraciones</h3>
+                    <p>Proyectos musicales y colaboraciones artísticas</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Prensa</h3>
+                    <p>Entrevistas y material de prensa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo">Alejandro Macedo</div>
+            <div class="social-links">
+                <a href="https://open.spotify.com/intl-es/artist/11FgIKFwsJ1HQ81OcnLSaW"><i class="fab fa-spotify"></i></a>
+                <a href="https://www.youtube.com/@AlejandroMacedo_Cantor"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p>&copy; 2025 Jorge Marquez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sistema de videos modal
+        const videoModal = document.getElementById('videoModal');
+        const modalVideoContainer = document.getElementById('modalVideoContainer');
+        const closeModal = document.getElementById('closeModal');
+        
+        // Abrir modal al hacer clic en una tarjeta de video
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const videoId = this.getAttribute('data-video');
+                const iframeHtml = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                `;
+                modalVideoContainer.innerHTML = iframeHtml;
+                videoModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Cerrar modal
+        closeModal.addEventListener('click', function() {
+            videoModal.style.display = 'none';
+            modalVideoContainer.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                videoModal.style.display = 'none';
+                modalVideoContainer.innerHTML = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Efectos de scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Inicializar animaciones
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.video-card, .contact-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+            });
+            
+            // Animación de aparición progresiva
+            setTimeout(() => {
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
